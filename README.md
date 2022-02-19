@@ -87,3 +87,60 @@ According to the results, `vehicle_length` and `ground_clearance` are statistica
 The p-value (`5.35e-11`) is considered highly significant since it is less than the significance level of 0.05. The slope of the linear model is not considered to be zero because there is sufficient evidence to reject the null hypothesis.
 
 The R-squared value of the model is `0.7149`, which indicates the predictors explain 71.5% of the variability in `mpg`. This linear model is about ~70% accurate in predicting the mpg of MehcaCar prototypes within this specific dataset.
+
+## Summary Statistics on Suspension Coils
+
+The MechaCar suspension coils' design specifications state that the suspension coils' variance must not exceed 100 pounds per square inch. Therefore, I analyzed to determine if MechaCar is breaching its design specifications.
+
+### Load Data
+I imported the MechaCar suspension coils data from `Suspension_Coil.csv` into `suspension_coil_table`:
+```r
+suspension_coil_table <-
+  read.csv("Suspension_Coil.csv",
+    check.names = FALSE,
+    stringsAsFactors = FALSE
+  )
+head(suspension_coil_table)
+#>   VehicleID Manufacturing_Lot  PSI
+#> 1    V40858              Lot1 1499
+#> 2    V40607              Lot1 1500
+#> 3    V31443              Lot1 1500
+#> 4     V6004              Lot1 1500
+#> 5     V7000              Lot1 1501
+#> 6    V17344              Lot1 1501
+```
+
+### Manufacturing Lot Statistics
+I created a summary table to determine the mean, median, variance, and standard deviation of the PSI within the `Manufacturing_Lot` as a whole:
+```r
+total_summary <-
+  suspension_coil_table %>% summarise(
+    mean = mean(PSI),
+    median = median(PSI),
+    variance = var(PSI),
+    sd = sd(PSI)
+  )  
+#>      mean median variance       sd
+#> 1 1498.78   1500 62.29356 7.892627
+```
+
+### Manufacturing Lot (Individual) Statistics
+I created a second summary table by grouping each `Manufacturing_Lot` to determine the mean, median, variance, and standard deviation PSI values within the three different lots:
+```r
+lot_summary <- suspension_coil_table %>%
+  group_by(Manufacturing_Lot) %>%
+  summarise(
+    mean = mean(PSI),
+    median = median(PSI),
+    variance = var(PSI),
+    sd = sd(PSI)
+  )  
+#>   Manufacturing_Lot    mean median    variance         sd
+#> 1              Lot1 1500.00 1500.0   0.9795918  0.9897433
+#> 2              Lot2 1500.20 1500.0   7.4693878  2.7330181
+#> 3              Lot3 1496.14 1498.5 170.2861224 13.0493725
+```
+### Results
+Analyzing the first summary table (`total_summary`) indicates the suspension coil manufacturing of all the lots as a whole meets the design specifications since the variance is `62.29356` and does not exceed the 100 PSI.
+
+However, when looking at each lot individually, it is evident that `Lot1` and `Lot2` can pass the design specification since each lot has a PSI variance value of `0.9795918` and `7.4693878`, which does not exceed 100 pounds per square inch limit. But, the suspension coils in `Lot3` have a PSI variance value of `170.2861224`, which is far greater than the maximum value limit of 100 PSI.

@@ -16,3 +16,32 @@ mecha_model <-
   ) # fit the linear regression model and save into `mecha_model`
 mecha_model # output coefficient for each variable in the linear equation
 summary(mecha_model) # generate summary statistics
+
+
+# Deliverable 2: Create Visualizations for the Trip Analysis ---------------------------
+suspension_coil_table <-
+  read.csv("Suspension_Coil.csv",
+    check.names = FALSE,
+    stringsAsFactors = FALSE
+  ) # import `Suspension_Coil.csv`
+head(suspension_coil_table)
+
+
+total_summary <-
+  suspension_coil_table %>% summarise(
+    mean = mean(PSI),
+    median = median(PSI),
+    variance = var(PSI),
+    sd = sd(PSI)
+  ) #  get the mean, median, variance, and standard deviation of the suspension coil’s PSI column
+print(total_summary)
+
+lot_summary <- suspension_coil_table %>%
+  group_by(Manufacturing_Lot) %>%
+  summarise(
+    mean = mean(PSI),
+    median = median(PSI),
+    variance = var(PSI),
+    sd = sd(PSI)
+  ) # group each manufacturing lot by the mean, median, variance, and standard deviation of the suspension coil’s PSI column
+print.data.frame(lot_summary)

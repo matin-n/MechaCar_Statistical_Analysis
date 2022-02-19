@@ -45,3 +45,24 @@ lot_summary <- suspension_coil_table %>%
     sd = sd(PSI)
   ) # group each manufacturing lot by the mean, median, variance, and standard deviation of the suspension coil’s PSI column
 print.data.frame(lot_summary)
+
+
+# Deliverable 3: T-Tests on Suspension Coils ---------------------------
+t.test(suspension_coil_table %>% pull(name = "PSI"),
+  mu = 1500
+) # t-test to determine if the PSI on all manufacturing is statistically different from population mean of 1,500 PSI
+
+t.test(
+  suspension_coil_table %>% filter(Manufacturing_Lot == "Lot1") %>% pull(name = "PSI"),
+  mu = 1500
+) # t-test to determine if the PSI on lot 1 manufacturing is statistically different from population mean of 1,500 PSI
+
+t.test(
+  suspension_coil_table %>% filter(Manufacturing_Lot == "Lot2") %>% pull(name = "PSI"),
+  mu = 1500
+) # t-test to determine if the PSI on lot 2 manufacturing is statistically different from population mean of 1,500 PSI
+
+t.test(
+  suspension_coil_table %>% filter(Manufacturing_Lot == "Lot3") %>% pull(name = "PSI"),
+  mu = 1500
+) # t-test to determine if the PSI on lot 3 manufacturing is statistically different from population mean of 1,500 PSI

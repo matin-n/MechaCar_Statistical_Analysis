@@ -144,3 +144,92 @@ lot_summary <- suspension_coil_table %>%
 Analyzing the first summary table (`total_summary`) indicates the suspension coil manufacturing of all the lots as a whole meets the design specifications since the variance is `62.29356` and does not exceed the 100 PSI.
 
 However, when looking at each lot individually, it is evident that `Lot1` and `Lot2` can pass the design specification since each lot has a PSI variance value of `0.9795918` and `7.4693878`, which does not exceed 100 pounds per square inch limit. But, the suspension coils in `Lot3` have a PSI variance value of `170.2861224`, which is far greater than the maximum value limit of 100 PSI.
+
+## T-Tests on Suspension Coils
+
+Multiple T-Tests were conducted using the `t.test()` function to determine if all manufacturing lots and each lot individually are statistically different from the population mean of 1,500 pounds per square inch.
+
+### Manufactoring Lots
+```r
+t.test(suspension_coil_table %>% pull(name = "PSI"),
+  mu = 1500
+)
+#
+#>
+#>  One Sample t-test
+#>
+#> data:  suspension_coil_table %>% pull(name = "PSI")
+#> t = -1.8931, df = 149, p-value = 0.06028
+#> alternative hypothesis: true mean is not equal to 1500
+#> 95 percent confidence interval:
+#>  1497.507 1500.053
+#> sample estimates:
+#> mean of x
+#>   1498.78
+```
+Assuming our significance level is the common 0.05 percent, the p-value (`0.06028`) is greater than the significance level. Therefore, there is not sufficient evidence to reject the null hypothesis, and the PSI across all manufacturing lots is statistically different from the population mean of 1,500 pounds per square inch.
+
+
+
+### Lot 1
+```r
+t.test(
+  suspension_coil_table %>% filter(Manufacturing_Lot == "Lot1") %>% pull(name = "PSI"),
+  mu = 1500
+)
+#>
+#>  One Sample t-test
+#>
+#> data:  suspension_coil_table %>% filter(Manufacturing_Lot == "Lot1") %>% pull(name = "PSI")
+#> t = 0, df = 49, p-value = 1
+#> alternative hypothesis: true mean is not equal to 1500
+#> 95 percent confidence interval:
+#>  1499.719 1500.281
+#> sample estimates:
+#> mean of x
+#>      1500
+```
+Assuming our significance level is the common 0.05 percent, the p-value (`1`) is greater than the significance level. Therefore, there is not sufficient evidence to reject the null hypothesis, and the PSI across manufacturing lot 1 is statistically different from the population mean of 1,500 pounds per square inch.
+
+
+
+### Lot 2
+```r
+t.test(
+  suspension_coil_table %>% filter(Manufacturing_Lot == "Lot2") %>% pull(name = "PSI"),
+  mu = 1500
+)
+#>
+#>  One Sample t-test
+#>
+#> data:  suspension_coil_table %>% filter(Manufacturing_Lot == "Lot2") %>% pull(name = "PSI")
+#> t = 0.51745, df = 49, p-value = 0.6072
+#> alternative hypothesis: true mean is not equal to 1500
+#> 95 percent confidence interval:
+#>  1499.423 1500.977
+#> sample estimates:
+#> mean of x
+#>    1500.2
+```
+Assuming our significance level is the common 0.05 percent, the p-value (`0.04168`) is lower than the significance level. Therefore, there is sufficient evidence to reject the null hypothesis, and the PSI across manufacturing lot 3 is not statistically different from the population mean of 1,500 pounds per square inch.
+
+
+### Lot 3
+```r
+t.test(
+  suspension_coil_table %>% filter(Manufacturing_Lot == "Lot3") %>% pull(name = "PSI"),
+  mu = 1500
+)
+#>
+#>  One Sample t-test
+#>
+#> data:  suspension_coil_table %>% filter(Manufacturing_Lot == "Lot3") %>% pull(name = "PSI")
+#> t = -2.0916, df = 49, p-value = 0.04168
+#> alternative hypothesis: true mean is not equal to 1500
+#> 95 percent confidence interval:
+#>  1492.431 1499.849
+#> sample estimates:
+#> mean of x
+#>   1496.14
+```
+Assuming our significance level is the common 0.05 perecent, the p-value (`0.04168`) is lower than the significance level. Therefore, there is sufficient evidence to reject the null hypothesis, and the PSI across manufacturing lot 3 is not statistically different from the population mean of 1,500 pounds per square inch.

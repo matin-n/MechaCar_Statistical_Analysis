@@ -233,3 +233,13 @@ t.test(
 #>   1496.14
 ```
 Assuming our significance level is the common 0.05 perecent, the p-value (`0.04168`) is lower than the significance level. Therefore, there is sufficient evidence to reject the null hypothesis, and the PSI across manufacturing lot 3 is not statistically different from the population mean of 1,500 pounds per square inch.
+
+## Study Design: MechaCar vs. Competition
+
+A statistical study that can quantify how MechaCars perform against the competition can be conducted by analyzing metrics of interest to a consumer. For instance, metrics of a car cost, fuel efficiency (highway or city), horsepower, maintenance cost, or safety rating can be used. One of the factors that are important to a consumer is the fuel efficiency. The null hypothesis in this study design is that there is a statistical difference between the fuel efficiency between MechaCar vehicles and the competitor. The alternative hypothesis is that there is not a statistical difference between highway fuel efficiency between MechaCar vehicles and the competitor. We can use a paired T-Test since we are pairing observations in one dataset with observations in another. The data that would be needed is the fuel efficiency of both MechaCar and the competitor.
+
+## Resources
+- Data Source: [`MechaCar_mpg.csv`](MechaCar_mpg.csv), [`Suspension_Coil.csv`](Suspension_Coil.csv)
+- Source Code: [`MechaCarChallenge.R`](MechaCarChallenge.R)
+- Software: [`RStudio 2021.09.2+382 "Ghost Orchid" Release`](https://www.rstudio.com/), [`R version 4.1.2 (Bird Hippie)`](https://www.r-project.org/)
+- Libraries: [`tidyverse`](https://tidyverse.org), [`dplyr`](https://dplyr.tidyverse.org)
